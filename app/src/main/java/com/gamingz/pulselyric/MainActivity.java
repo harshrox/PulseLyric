@@ -21,6 +21,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -38,13 +39,23 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
 
     BottomSheetDialog bottomSheetDialog;
     BottomSheetDialog bottomSheetDialog_set;
+    BottomSheetDialog bottomSheetDialog_del;
     Button timePicker;
     TextView timeText;
     Button timePickerExit;
+
+    EditText medName ;
+    Button deleteMed;
+    EditText medNameDel;
+    ArrayList<String> medicineName ;
+    ArrayList<Integer> reqCode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        medicineName = new ArrayList<>();
+        reqCode = new ArrayList<>();
 
         textView = findViewById(R.id.tagLine);
 
@@ -57,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
         cardViewRem = findViewById(R.id.reminderCardview);
         bottomSheetDialog = new BottomSheetDialog(this);
         bottomSheetDialog_set = new BottomSheetDialog(this);
+        bottomSheetDialog_del = new BottomSheetDialog(this);
         createDialog();
         cardViewRem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,6 +103,12 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
                     public void onClick(View v) {
                         DialogFragment timePickerFrag = new TimePickerFragment();
                         timePickerFrag.show(getSupportFragmentManager(), "time picker");
+
+                        medName = setView.findViewById(R.id.medName);
+                        String name0fMedicine = medName.getText().toString();
+                        medicineName.add(name0fMedicine);
+                        Toast.makeText(MainActivity.this,name0fMedicine,Toast.LENGTH_SHORT).show();
+
                     }
                 });
                 timePickerExit.setOnClickListener(new View.OnClickListener() {
@@ -110,7 +128,32 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
             @Override
             public void onClick(View v) {
                 bottomSheetDialog.dismiss();
-                Toast.makeText(MainActivity.this,"Delete",Toast.LENGTH_LONG).show();
+
+                bottomSheetDialog_del.show();
+                View setView2 = getLayoutInflater().inflate(R.layout.del_reminder_dialog, null, false);
+
+                medNameDel = setView2.findViewById(R.id.medNameDelete);
+                deleteMed = setView2.findViewById(R.id.reminderDeleteButton);
+
+                bottomSheetDialog_del.setContentView(setView2);
+
+                deleteMed.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String deletedMedicine = medNameDel.getText().toString();
+                        for(String name: medicineName){
+                            if(deletedMedicine.equals(name)){
+                                int indexMedicine = medicineName.indexOf(name);
+
+                                int codeRequest = reqCode.get(indexMedicine);
+
+
+                            }
+                        }
+                    }
+                });
+
+
             }
         });
         bottomSheetDialog.setContentView(view);
@@ -119,9 +162,8 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
-        ArrayList<String> medicineName = new ArrayList<>();
-        ArrayList<Integer> reqCode = new ArrayList<>();
-
+        String code = Integer.toString(hourOfDay)+Integer.toString(minute);
+        reqCode.add(Integer.parseInt(code));
         timeText.setText("Hour: " + hourOfDay + " Minute: " + minute);
 
         Intent alarmIntent = new Intent(this, MyBroadcastReceiver.class);
@@ -152,6 +194,7 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
                 triggerTimeMillis,
                 pendingIntent
         );
+
 
 
 

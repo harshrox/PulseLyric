@@ -14,5 +14,6 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
         mp=MediaPlayer.create(context, Settings.System.DEFAULT_RINGTONE_URI);
         mp.start();
         Toast.makeText(context, "Alarm....", Toast.LENGTH_LONG).show();
+
     }
 }
