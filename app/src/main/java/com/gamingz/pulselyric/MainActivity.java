@@ -2,7 +2,9 @@ package com.gamingz.pulselyric;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.DialogFragment;
 
+import android.app.TimePickerDialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -10,19 +12,24 @@ import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener{
 
 
     TextView textView;
     CardView cardViewRem;
 
     BottomSheetDialog bottomSheetDialog;
-
+    BottomSheetDialog bottomSheetDialog_set;
+    Button timePicker;
+    TextView timeText;
+    Button timePickerExit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         cardViewRem = findViewById(R.id.reminderCardview);
         bottomSheetDialog = new BottomSheetDialog(this);
+        bottomSheetDialog_set = new BottomSheetDialog(this);
         createDialog();
         cardViewRem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,8 +56,10 @@ public class MainActivity extends AppCompatActivity {
         bottomSheetDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
     }
 
+
+
     private void createDialog() {
-        View view = getLayoutInflater().inflate(R.layout.bottom_sheet_dialog,null,false);
+        View view = getLayoutInflater().inflate(R.layout.reminder_dialog,null,false);
 
         TextView dialog_rem = view.findViewById(R.id.set_rem_button);
         TextView dialog_del = view.findViewById(R.id.del_rem_button);
@@ -57,9 +67,34 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 bottomSheetDialog.dismiss();
-                Toast.makeText(MainActivity.this,"Set",Toast.LENGTH_LONG).show();
+
+                bottomSheetDialog_set.show();
+                View setView = getLayoutInflater().inflate(R.layout.set_reminder_dialog, null, false);
+
+                timeText = setView.findViewById(R.id.timeText);
+                timePicker = setView.findViewById(R.id.timePicker);
+                timePickerExit = setView.findViewById(R.id.timePickerExit);
+
+                timePicker.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        DialogFragment timePickerFrag = new TimePickerFragment();
+                        timePickerFrag.show(getSupportFragmentManager(), "time picker");
+                    }
+                });
+                timePickerExit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        bottomSheetDialog_set.dismiss();
+                        Toast.makeText(MainActivity.this, "Good", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                bottomSheetDialog_set.setContentView(setView);
             }
         });
+
+
         dialog_del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,5 +103,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         bottomSheetDialog.setContentView(view);
+    }
+
+    @Override
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        TextView timeText =  findViewById(R.id.timeText);
+        timeText.setText("Hour: " + hourOfDay + " Minute: " + minute);
     }
 }
