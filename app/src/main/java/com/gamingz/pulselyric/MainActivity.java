@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -71,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
                 bottomSheetDialog_set.show();
                 View setView = getLayoutInflater().inflate(R.layout.set_reminder_dialog, null, false);
 
-                timeText = setView.findViewById(R.id.timeText);
+                timeText =  setView.findViewById(R.id.timeText);
                 timePicker = setView.findViewById(R.id.timePicker);
                 timePickerExit = setView.findViewById(R.id.timePickerExit);
 
@@ -107,7 +108,8 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        TextView timeText =  findViewById(R.id.timeText);
+
         timeText.setText("Hour: " + hourOfDay + " Minute: " + minute);
     }
+
 }
