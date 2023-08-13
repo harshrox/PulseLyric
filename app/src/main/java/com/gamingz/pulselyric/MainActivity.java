@@ -33,7 +33,8 @@ import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener{
 
-    int flag = 0;
+    int flagSet = 0;
+    int flagDel = 0;
     String name0fMedicine;
     TextView textView;
     CardView cardViewRem;
@@ -109,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
                         name0fMedicine = medName.getText().toString();
                         if (!name0fMedicine.equals("")) {
                             medicineName.add(name0fMedicine);
-                            flag=1;
+                            flagSet=1;
                         }
                         else{
                             timePickerFrag.dismiss();
@@ -125,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
                     @Override
                     public void onClick(View v) {
                         bottomSheetDialog_set.dismiss();
-                        if(flag==1){
+                        if(flagSet==1){
                             Toast.makeText(MainActivity.this,"Reminder set for "+name0fMedicine,Toast.LENGTH_SHORT).show();
 
                         }
@@ -181,10 +182,15 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
 
                                 Toast.makeText(MainActivity.this, "Reminder deleted for " + deletedMedicine, Toast.LENGTH_SHORT).show();
 
+                                flagDel=1;
                                 break;
 
 
                             }
+
+                        }
+                        if(flagDel==0){
+                            Toast.makeText(MainActivity.this,"No reminder exists for "+deletedMedicine,Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -204,7 +210,7 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
         timeText.setText("Hour: " + hourOfDay + " Minute: " + minute);
 
         Intent alarmIntent = new Intent(this, MyBroadcastReceiver.class);
-        alarmIntent.putExtra("ALARM_MESSAGE", "Alarm for " + hourOfDay+":"+minute + "has been set successfully");
+        alarmIntent.putExtra("ALARM_MESSAGE", "Reminder for medicine "+medicineName.get(reqCode.indexOf(codeOfReq)));
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
                 this.getApplicationContext(),

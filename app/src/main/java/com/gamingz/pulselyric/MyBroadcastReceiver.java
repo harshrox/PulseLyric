@@ -7,13 +7,18 @@ import android.media.MediaPlayer;
 import android.provider.Settings;
 import android.widget.Toast;
 
-public class MyBroadcastReceiver extends BroadcastReceiver {
+public class MyBroadcastReceiver extends BroadcastReceiver{
     MediaPlayer mp;
     @Override
     public void onReceive(Context context, Intent intent) {
         mp=MediaPlayer.create(context, R.raw.reminder_tone);
         mp.start();
-        Toast.makeText(context, "Alarm....", Toast.LENGTH_LONG).show();
+        String alarmMessage = intent.getStringExtra("ALARM_MESSAGE");
+        if (alarmMessage != null) {
+            Toast.makeText(context, alarmMessage, Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(context, "Default alarm message", Toast.LENGTH_LONG).show();
+        }
 
     }
 }
