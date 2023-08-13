@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/timeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="31dp"
+        android:text="time"
+        android:textSize="30sp" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/medName"
+        android:hint="Medicine Name"
+        android:layout_below="@id/timeText"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:id="@+id/timePicker"
+        android:layout_width="wrap_content"
+        android:layout_below="@id/medName"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="open time picker"
+        android:layout_marginBottom="30dp"/>
+
+    <Button
+        android:id="@+id/timePickerExit"
+        android:layout_width="wrap_content"
+        android:layout_below="@id/timePicker"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Exit"
+        android:layout_marginBottom="400dp"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</RelativeLayout>
