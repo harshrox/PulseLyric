@@ -90,9 +90,7 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
                 startActivity(intent);
 
 
-//                webView = findViewById(R.id.webView);
-//                webView.getSettings().setJavaScriptEnabled(true); // Enable JavaScript if required
-//                webView.loadUrl("https://symptomate.com/interview/0"); // Replace with the desired website URL
+
             }
         });
 
