@@ -34,8 +34,8 @@ import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener{
 
-    int flagSet = 0;
-    int flagDel = 0;
+    int flagSet;
+    int flagDel ;
     String name0fMedicine;
     TextView textView;
     CardView cardViewRem;
@@ -118,6 +118,8 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
                 timePicker = setView.findViewById(R.id.timePicker);
                 timePickerExit = setView.findViewById(R.id.timePickerExit);
 
+                flagSet=0;
+
                 timePicker.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -173,8 +175,9 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
                     @Override
                     public void onClick(View v) {
                         String deletedMedicine = medNameDel.getText().toString();
+                        flagDel=0;
                         for(String name: medicineName){
-                            if(deletedMedicine.equals(name)){
+                            if(deletedMedicine.equalsIgnoreCase(name)){
                                 int indexMedicine = medicineName.indexOf(name);
 
                                 int codeRequest = reqCode.get(indexMedicine);
