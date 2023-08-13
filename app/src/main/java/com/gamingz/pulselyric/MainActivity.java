@@ -20,6 +20,7 @@ import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
     String name0fMedicine;
     TextView textView;
     CardView cardViewRem;
+    CardView cardViewSymptom;
 
     BottomSheetDialog bottomSheetDialog;
     BottomSheetDialog bottomSheetDialog_set;
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
     Button timePicker;
     TextView timeText;
     Button timePickerExit;
+    WebView webView;
 
     EditText medName ;
     Button deleteMed;
@@ -78,6 +81,21 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
             }
         });
         bottomSheetDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+
+        cardViewSymptom = findViewById(R.id.symptomsCardview);
+        cardViewSymptom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, SymptomWindow.class);
+                startActivity(intent);
+
+
+//                webView = findViewById(R.id.webView);
+//                webView.getSettings().setJavaScriptEnabled(true); // Enable JavaScript if required
+//                webView.loadUrl("https://symptomate.com/interview/0"); // Replace with the desired website URL
+            }
+        });
+
     }
 
 
