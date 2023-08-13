@@ -33,7 +33,8 @@ import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener{
 
-
+    int flag = 0;
+    String name0fMedicine;
     TextView textView;
     CardView cardViewRem;
 
@@ -105,17 +106,29 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
                         timePickerFrag.show(getSupportFragmentManager(), "time picker");
 
                         medName = setView.findViewById(R.id.medName);
-                        String name0fMedicine = medName.getText().toString();
-                        medicineName.add(name0fMedicine);
-                        Toast.makeText(MainActivity.this,name0fMedicine,Toast.LENGTH_SHORT).show();
+                        name0fMedicine = medName.getText().toString();
+                        if (!name0fMedicine.equals("")) {
+                            medicineName.add(name0fMedicine);
+                            flag=1;
+                        }
+                        else{
+                            timePickerFrag.dismiss();
+                            Toast.makeText(MainActivity.this,"Please enter valid name",Toast.LENGTH_SHORT).show();
+
+                        }
 
                     }
                 });
+
+
                 timePickerExit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         bottomSheetDialog_set.dismiss();
-                        Toast.makeText(MainActivity.this, "Good", Toast.LENGTH_SHORT).show();
+                        if(flag==1){
+                            Toast.makeText(MainActivity.this,"Reminder set for "+name0fMedicine,Toast.LENGTH_SHORT).show();
+
+                        }
                     }
                 });
 
@@ -148,6 +161,29 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
                                 int codeRequest = reqCode.get(indexMedicine);
 
 
+                                Intent alarmIntent = new Intent(MainActivity.this, MyBroadcastReceiver.class);
+                                PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                                        MainActivity.this,
+                                        codeRequest,
+                                        alarmIntent,
+                                        PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+                                );
+
+                                AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+                                alarmManager.cancel(pendingIntent);
+
+                                medicineName.remove(indexMedicine);
+                                reqCode.remove(indexMedicine);
+
+
+                                bottomSheetDialog_del.dismiss();
+
+
+                                Toast.makeText(MainActivity.this, "Reminder deleted for " + deletedMedicine, Toast.LENGTH_SHORT).show();
+
+                                break;
+
+
                             }
                         }
                     }
@@ -163,7 +199,8 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
         String code = Integer.toString(hourOfDay)+Integer.toString(minute);
-        reqCode.add(Integer.parseInt(code));
+        int codeOfReq = Integer.parseInt(code);
+        reqCode.add(codeOfReq);
         timeText.setText("Hour: " + hourOfDay + " Minute: " + minute);
 
         Intent alarmIntent = new Intent(this, MyBroadcastReceiver.class);
@@ -171,7 +208,7 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
                 this.getApplicationContext(),
-                5,
+                codeOfReq,
                 alarmIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
         );

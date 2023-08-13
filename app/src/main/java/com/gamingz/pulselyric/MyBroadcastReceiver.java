@@ -11,7 +11,7 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
     MediaPlayer mp;
     @Override
     public void onReceive(Context context, Intent intent) {
-        mp=MediaPlayer.create(context, Settings.System.DEFAULT_RINGTONE_URI);
+        mp=MediaPlayer.create(context, R.raw.reminder_tone);
         mp.start();
         Toast.makeText(context, "Alarm....", Toast.LENGTH_LONG).show();
 
