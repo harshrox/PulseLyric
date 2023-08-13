@@ -71,9 +71,9 @@ public class CreateAccount extends AppCompatActivity {
         } else if (Password.isEmpty() || Password.length() < 6) {
             password.setError("Enter proper password");
         } else if (!Password.equals(ConfirmPassword)) {
-            confirmPassword.setError("Password not match both failed");
+            confirmPassword.setError("Password did not match");
         } else {
-            progressDialog.setMessage("Please wait while Registration ...");
+            progressDialog.setMessage("Registering...");
             progressDialog.setTitle("Registration");
             progressDialog.setCanceledOnTouchOutside(false);
             progressDialog.show();
@@ -84,10 +84,10 @@ public class CreateAccount extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         progressDialog.dismiss();
                         sendUserToNextActivity();
-                        Toast.makeText(CreateAccount.this, "Registration Successful", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CreateAccount.this, "Registration successful", Toast.LENGTH_SHORT).show();
                     } else {
                         progressDialog.dismiss();
-                        Toast.makeText(CreateAccount.this, "User Already exits", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CreateAccount.this, "User already exits", Toast.LENGTH_SHORT).show();
                     }
                 }
             });

@@ -7,12 +7,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".CreateAccount">
+    tools:context=".CreateAccount"
+    android:background="@color/white">
 
 
     <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:src="@mipmap/logo_round"
         android:layout_marginTop="70dp"/>
@@ -22,14 +23,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Email"
+        android:textColor="@color/black"
         android:inputType="text"
-        android:layout_marginTop="250dp"/>
+        android:layout_marginTop="100dp"/>
 
     <EditText
         android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Password"
+        android:textColor="@color/black"
         android:inputType="textPassword"
         android:layout_marginTop="8dp"/>
 
@@ -39,14 +42,32 @@
         android:id="@+id/login"
         android:backgroundTint="@color/black"
         android:text="Login"
+        android:textSize="20dp"
+        android:textColor="@color/white"
         android:layout_marginTop="16dp"/>
 
     <TextView
         android:id="@+id/createNewAccount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:text="Don't have an account? Sign up"
+        android:textColor="@color/black"
         android:textAlignment="center" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="bottom"
+            android:text="Copyright © 2023 Nataraja Coders"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

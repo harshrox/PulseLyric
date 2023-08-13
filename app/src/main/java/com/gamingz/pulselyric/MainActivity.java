@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
     BottomSheetDialog bottomSheetDialog_set;
     BottomSheetDialog bottomSheetDialog_del;
     Button timePicker;
-    TextView timeText;
     Button timePickerExit;
     WebView webView;
 
@@ -114,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
                 bottomSheetDialog_set.show();
                 View setView = getLayoutInflater().inflate(R.layout.set_reminder_dialog, null, false);
 
-                timeText =  setView.findViewById(R.id.timeText);
+
                 timePicker = setView.findViewById(R.id.timePicker);
                 timePickerExit = setView.findViewById(R.id.timePickerExit);
 
@@ -228,7 +227,6 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
         String code = Integer.toString(hourOfDay)+Integer.toString(minute);
         int codeOfReq = Integer.parseInt(code);
         reqCode.add(codeOfReq);
-        timeText.setText("Hour: " + hourOfDay + " Minute: " + minute);
 
         Intent alarmIntent = new Intent(this, MyBroadcastReceiver.class);
         alarmIntent.putExtra("ALARM_MESSAGE", "Reminder for medicine "+medicineName.get(reqCode.indexOf(codeOfReq)));
