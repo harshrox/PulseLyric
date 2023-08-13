@@ -23,6 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Email"
+        android:textColorHint="@android:color/darker_gray"
         android:textColor="@color/black"
         android:inputType="text"
         android:layout_marginTop="100dp"/>
@@ -32,6 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Password"
+        android:textColorHint="@android:color/darker_gray"
         android:textColor="@color/black"
         android:inputType="textPassword"
         android:layout_marginTop="8dp"/>
